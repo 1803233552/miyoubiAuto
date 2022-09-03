@@ -145,7 +145,7 @@ class miYouBi:
         for i in gameList:
             req = requests.get(url=listUrl.format(i["forumId"]), headers=self.headers)
             data = json.loads(req.text.encode('utf-8'))
-            for n in range(10):
+            for n in range(16):
                 List.append([data["data"]["list"][n]["post"]["post_id"], data["data"]["list"][n]["post"]["subject"]])
             log.info("已获取{}个帖子".format(len(List)))
             time.sleep(2)
@@ -153,7 +153,7 @@ class miYouBi:
 
     def readArticle(self):
         log.info("正在看帖......")
-        for i in range(3):
+        for i in range(7):
             req = requests.get(url=detailUrl.format(self.articleList[i][0]), cookies=self.Cookie, headers=self.headers)
             data = json.loads(req.text.encode('utf-8'))
             if data["message"] == "OK":
@@ -162,7 +162,7 @@ class miYouBi:
 
     def upVote(self):
         log.info("正在点赞......")
-        for i in range(5):
+        for i in range(112):
             req = requests.post(url=voteUrl, cookies=self.Cookie, headers=self.headers,
                                 json={"post_id": self.articleList[i][0], "is_cancel": False})
             data = json.loads(req.text.encode('utf-8'))
